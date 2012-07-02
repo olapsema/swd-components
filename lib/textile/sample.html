@@ -1,0 +1,812 @@
+<div class="wiki wiki-page">
+    <p class="breadcrumb">
+        <a href="/projects/redmine/wiki/RusGuide" class="wiki-page">Руководство</a> » <a href="/projects/redmine/wiki/RusUser_Guide" class="wiki-page">Руководство пользователя</a>
+    </p>
+    <p>
+        Оригинал: <a href="/projects/redmine/wiki/RedmineTextFormatting" class="wiki-page">Wiki formatting v.63</a> - дополнено и переработано.
+    </p>
+    <a name="Оформление-текстов"></a>
+    <h1>Оформление текстов<a href="#Оформление-текстов" class="wiki-anchor">¶</a></h1>
+    <ul class="toc right">
+        <li><a href="#Оформление-текстов">Оформление текстов</a>
+        <ul>
+            <li><a href="#Строчные-элементы">Строчные элементы</a>
+            <ul>
+                <li><a href="#Внешние-ссылки">Внешние ссылки</a></li>
+                <li><a href="#Акронимы">Акронимы</a></li>
+                <li><a href="#Стили-шрифтов">Стили шрифтов</a></li>
+                <li><a href="#Изображения">Изображения</a></li>
+            </ul>
+            </li>
+            <li><a href="#Блочные-элементы">Блочные элементы</a>
+            <ul>
+                <li><a href="#Заголовки">Заголовки</a></li>
+                <li><a href="#Абзацы">Абзацы</a></li>
+                <li><a href="#Pre-форматирование">Pre-форматирование</a></li>
+                <li><a href="#Цитаты">Цитаты</a></li>
+                <li><a href="#Списки">Списки</a></li>
+                <li><a href="#Таблицы">Таблицы</a></li>
+                <li><a href="#Сноски">Сноски</a></li>
+                <li><a href="#Разделитель">Разделитель</a></li>
+            </ul>
+            </li>
+            <li><a href="#Атрибуты">Атрибуты</a>
+            <ul>
+                <li><a href="#Идентификаторы">Идентификаторы</a></li>
+                <li><a href="#Классы-css">Классы css</a></li>
+            </ul>
+            </li>
+            <li><a href="#Ссылки-на-объекты">Ссылки на объекты</a>
+            <ul>
+                <li><a href="#Задачи">Задачи</a></li>
+                <li><a href="#Редакции">Редакции</a></li>
+                <li><a href="#Коммиты">Коммиты</a></li>
+                <li><a href="#Wiki-страницы">Wiki-страницы</a></li>
+                <li><a href="#Документы">Документы</a></li>
+                <li><a href="#Версии">Версии</a></li>
+                <li><a href="#Проекты">Проекты</a></li>
+                <li><a href="#Вложения">Вложения</a></li>
+                <li><a href="#Репозиторий">Репозиторий</a></li>
+            </ul>
+            </li>
+            <li><a href="#E-mail-ссылки">E-mail ссылки</a></li>
+            <li><a href="#Макросы">Макросы</a>
+            <ul>
+                <li><a href="#Содержание">Содержание</a></li>
+                <li><a href="#Дочерние-страницы">Дочерние страницы</a></li>
+                <li><a href="#Включение-текста">Включение текста</a></li>
+            </ul>
+            </li>
+            <li><a href="#Подсветка-кода">Подсветка кода</a></li>
+            <li><a href="#Заключение">Заключение</a></li>
+        </ul>
+        </li>
+    </ul>
+    <p>
+        Для таких вещей как заголовки, выделение текста, таблицы, списки и т.п. Redmine поддерживает<sup><a href="#fn1">1</a></sup> парсер <a href="http://textile.thresholdstate.com" class="external">Textile</a>.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=2"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Строчные-элементы"></a>
+    <h2>Строчные элементы<a href="#Строчные-элементы" class="wiki-anchor">¶</a></h2>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=3"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Внешние-ссылки"></a>
+    <h3>Внешние ссылки<a href="#Внешние-ссылки" class="wiki-anchor">¶</a></h3>
+    <p>
+        Адреса http(s), ftp и mail автоматически преобразуются в "кликабельные" ссылки:
+    </p>
+    <p style="padding-left:1em;">
+        <strong>http://www.redmine.org</strong>: <a class="external" href="http://www.redmine.org">http://www.redmine.org</a>
+    </p>
+    <p style="padding-left:1em;">
+        <strong>someone@foo.bar</strong>: <a class="email" href="mailto:someone@foo.bar">someone@foo.bar</a>.
+    </p>
+    <p>
+        Для размещения в ссылке произвольного текста используйте следующую разметку:
+    </p>
+    <p style="padding-left:1em;">
+        <strong>"Главная страница проекта Redmine":http://www.redmine.org</strong>: <a href="http://www.redmine.org" class="external">Главная страница проекта Redmine</a>.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=4"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Акронимы"></a>
+    <h3>Акронимы<a href="#Акронимы" class="wiki-anchor">¶</a></h3>
+    <p>
+        Ненавязчиво пояснить аббревиатуры в тексте можно следующим образом<sup><a href="#fn2">2</a></sup>:
+    </p>
+    <p style="padding-left:1em;">
+        <strong>JPL(Jean-Philippe Lang)</strong>: <acronym title="Jean-Philippe Lang">JPL</acronym>.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=5"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Стили-шрифтов"></a>
+    <h3>Стили шрифтов<a href="#Стили-шрифтов" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>_italic_</strong>: <em>курсив</em>
+    </p>
+    <p style="padding-left:1em;">
+        <strong>*_bold italic_*</strong>: <strong><em>жирный курсив</em></strong>
+    </p>
+    <p style="padding-left:1em;">
+        <strong>+underline+</strong>: <ins>подчеркнутый</ins>
+    </p>
+    <p style="padding-left:1em;">
+        <strong>-strike-through-</strong>: <del>перечеркнутый</del>
+    </p>
+    <p style="padding-left:1em;">
+        <strong>Plain ^superscript^</strong>: <sup>Верхний</sup> индекс
+    </p>
+    <p style="padding-left:1em;">
+        <strong>Plain ~subscript~</strong>: <sub>Нижний</sub> индекс
+    </p>
+    <p style="padding-left:1em;">
+        <strong>inline @monospace@</strong>: <code>моноширинный</code> шрифт
+    </p>
+    <p style="padding-left:1em;">
+        <strong>??cite??</strong>: <cite>цитата</cite>
+    </p>
+    <p style="padding-left:1em;">
+        <strong>%span%</strong>: <span>диапазон</span>
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=6"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Изображения"></a>
+    <h3>Изображения<a href="#Изображения" class="wiki-anchor">¶</a></h3>
+    <p>
+        Внешние:
+    </p>
+    <p style="padding-left:1em;">
+        <strong>!image_url!</strong> -- встраивает в текст изображение, находящееся по внешнему адресу image_url.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>!&gt;image_url!</strong> -- изображение выровнено по правому краю, текст обтекает изображение по левому краю.
+    </p>
+    <p>
+        Прикрепленные:
+    </p>
+    <p style="padding-left:1em;">
+        <strong>!attached_image.png!</strong> -- встраивает в текст изображение attached_image.png, прикрепленное к странице (см. <a href="/projects/redmine/wiki/RedmineTextFormattingRus#attach" class="wiki-page">предупреждение</a>).
+    </p>
+     Примеры:
+    <ul>
+        <li><strong>!i0003.gif!</strong> изображение, причем текст будет продолжен после изображения <img src="/attachments/download/6527" alt=""> вот так</li>
+        <li><strong>!&gt;i0003.gif!</strong> изображение отображается справа от текста
+        <div style="float:right">
+            <img src="/attachments/download/6527" alt="">
+        </div>
+        <br>
+        пример изображения справа от текста<br>
+        опять справа от текста<br>
+        еще справа от текста<br>
+        и тут картинка справа от текста<br>
+        а тут текст слева от картинки</li>
+    </ul>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=7"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Блочные-элементы"></a>
+    <h2>Блочные элементы<a href="#Блочные-элементы" class="wiki-anchor">¶</a></h2>
+    <p>
+        Для корректной обработки textile-разметки рекомендуется помещать блочные элементы (p, h, bq, fn) в самое начало строки и отделять их от остального текста пустыми строками.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=8"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Заголовки"></a>
+    <h3>Заголовки<a href="#Заголовки" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>hn.</strong> Заголовок n-ного уровня, где <em>n</em> принимает значение от 1 до 6.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=9"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Абзацы"></a>
+    <h3>Абзацы<a href="#Абзацы" class="wiki-anchor">¶</a></h3>
+    <p>
+        <strong>p.</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>p(.</strong> Отступ слева в 1em. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <p style="padding-left:2em;">
+        <strong>p((.</strong> Отступ слева в 2em. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
+        Отступ сохраняется для всех следующих без пробела строк.
+    </p>
+    <p style="text-align:right;">
+        <strong>p&gt;.</strong> Выравнивание по правому краю. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <p style="text-align:left;">
+        <strong>p&lt;.</strong> Выравнивание по левому краю (по умолчанию).
+    </p>
+    <p style="padding-right:3em;text-align:right;">
+        <strong>p)))&gt;.</strong> Выравнивание по правому краю с отступом справа в 3em. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br>
+        <em>Выравнивание и отступ также сохраняется для всего следующего через перенос строки (<code>&lt;br&gt;</code>)<br>
+         текста.</em>
+    </p>
+    <p>
+        <em>Выравнивание сбрасывается с введением пустой строки между выровненным блочным элементом и остальным текстом.</em>
+    </p>
+    <p style="text-align:center;">
+        <strong>p=.</strong> Выравнивание по центру. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <p style="text-align:justify;">
+        <strong>p&lt;&gt;.</strong> Выравнивание по левому и правому краю. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=10"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Pre-форматирование"></a>
+    <h3>Pre-форматирование<a href="#Pre-форматирование" class="wiki-anchor">¶</a></h3>
+    <blockquote>
+        <p>
+            Внутри выделенного <strong>тэгами</strong> блока текст не будет преобразован <a href="/projects/redmine/wiki/RedmineTextFormattingRus#%D0%A0%D0%B0%D0%B7%D0%BC%D0%B5%D1%82%D0%BA%D0%B0-Textile" class="wiki-page">Парсером</a>.
+        </p>
+    </blockquote>
+    <p>
+        Чтобы избежать преобразования textile-разметки в html-код используйте тэги <code>&lt;pre&gt;&lt;/pre&gt;</code>.
+    </p>
+    <pre>
+        &lt;pre&gt;Внутри выделенного *тэгами* блока текст не будет преобразован [[RedmineTextFormattingRus#Разметка Textile|Парсером]].&lt;/pre&gt;
+    </pre>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=11"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Цитаты"></a>
+    <h3>Цитаты<a href="#Цитаты" class="wiki-anchor">¶</a></h3>
+    <blockquote>
+        <p>
+            <strong>&gt;</strong> "Ruby on Rails" — программный каркас, написанный на языке программирования Ruby. Ruby on Rails предоставляет архитектурный образец Model-View-Controller (модель-представление-контроллер) для веб-приложений, а также обеспечивает их интеграцию с веб-сервером и сервером базы данных.
+        </p>
+    </blockquote>
+     или
+    <blockquote cite="http://ru.wikipedia.org/wiki/Ruby_on_Rails">
+        <p>
+            <strong>bq.:http://ru.wikipedia.org/wiki/Ruby_on_Rails</strong> "Ruby on Rails" — программный каркас, написанный на языке программирования Ruby. Ruby on Rails предоставляет архитектурный образец Model-View-Controller (модель-представление-контроллер) для веб-приложений, а также обеспечивает их интеграцию с веб-сервером и сервером базы данных.
+        </p>
+    </blockquote>
+    <blockquote>
+        <blockquote>
+            <p>
+                <strong>&gt;&gt;</strong> Синтаксис textile-ссылки <code>:http://ru.wikipedia.org/wiki/Ruby_on_Rails</code> преобразуется в атрибут <code>cite="http://ru.wikipedia.org/wiki/Ruby_on_Rails"</code>.
+            </p>
+        </blockquote>
+    </blockquote>
+    <blockquote>
+        <blockquote>
+            <blockquote>
+                <p>
+                    Вдруг кому пригодится.
+                </p>
+            </blockquote>
+        </blockquote>
+    </blockquote>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=12"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Списки"></a>
+    <h3>Списки<a href="#Списки" class="wiki-anchor">¶</a></h3>
+    <p>
+        Обратите внимание на то, как работает вложенность элементов при вставке пустой строки между ними.<br>
+        Вложенность сохраняется при наличие отступа у последующего элемента списка и сбрасывается - без отступа.
+    </p>
+     Разметка для ненумерованного списка<br>
+    <pre>
+        * Item 1 * Item 2 ** Item 2.1 ** Item 2.1.1 *** Item 2.1.2 ** Item 2.2 * Item 3 ** Item 0
+    </pre>
+    <br>
+    отображается как:
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2
+        <ul>
+            <li>Item 2.1
+            <ul>
+                <li>Item 2.1.2</li>
+            </ul>
+            </li>
+            <li>Item 2.2</li>
+        </ul>
+        </li>
+        <li>Item 3</li>
+    </ul>
+    <ul>
+        <li>Item 2.1.1</li>
+    </ul>
+    <ul>
+        <li>Item 0</li>
+    </ul>
+     Разметка для нумерованного списка<br>
+    <pre>
+        # Item 1 # Item 2 ## Item 2.1 ## Item 2.1.1 ## Item 2.2 # Item 3 # Item 0
+    </pre>
+    <br>
+    отображается как:
+    <ol>
+        <li>Item 1</li>
+        <li>Item 2
+        <ol>
+            <li>Item 2.2</li>
+        </ol>
+        </li>
+        <li>Item 3</li>
+    </ol>
+    <ol>
+        <li>Item 2.1
+        <ol>
+            <li>Item 2.1.1</li>
+        </ol>
+        </li>
+    </ol>
+    <ol>
+        <li>Item 0</li>
+    </ol>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=13"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Таблицы"></a>
+    <h3>Таблицы<a href="#Таблицы" class="wiki-anchor">¶</a></h3>
+    <p>
+        Любое количество пустых символов будет заменено одним пробелом, поэтому для удобства разметки можно использовать текстовый редактор и табуляцию.
+    </p>
+    <pre>
+        |_.UserID|_.Name|_.Group|_. attribute list | |\3=.IT |&lt;. align left| |1|Artur Pirozhkov |/2.Users |&gt;. align right| |2|Vasya Rogov |=. center | |3|John Smith |Admin (root)|^. valign top | |4|- |Nobody (anonymous)|~. valign bottom|
+    </pre>
+     Отображается как:
+    <table>
+    <tbody>
+    <tr>
+        <th>
+            UserID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Group
+        </th>
+        <th>
+            attribute list
+        </th>
+    </tr>
+    <tr>
+        <td style="text-align:center;" colspan="3">
+            IT
+        </td>
+        <td style="text-align:left;">
+            align left
+        </td>
+    </tr>
+    <tr>
+        <td>
+            1
+        </td>
+        <td>
+            Artur Pirozhkov
+        </td>
+        <td rowspan="2">
+            Users
+        </td>
+        <td style="text-align:right;">
+            align right
+        </td>
+    </tr>
+    <tr>
+        <td>
+            2
+        </td>
+        <td>
+            Vasya Rogov
+        </td>
+        <td style="text-align:center;">
+            center
+        </td>
+    </tr>
+    <tr>
+        <td>
+            3
+        </td>
+        <td>
+            John Smith
+        </td>
+        <td>
+            Admin<sup><a href="#fn3">3</a></sup><br>
+            (root)
+        </td>
+        <td style="vertical-align:top;">
+            valign top
+        </td>
+    </tr>
+    <tr>
+        <td>
+            4
+        </td>
+        <td>
+            -
+        </td>
+        <td>
+            Nobody<br>
+             (anonymous)
+        </td>
+        <td style="vertical-align:bottom;">
+            valign bottom
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=14"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Сноски"></a>
+    <h3>Сноски<a href="#Сноски" class="wiki-anchor">¶</a></h3>
+    <p>
+        Сноска:
+    </p>
+    <p id="fn21" class="footnote">
+        <sup>21</sup><strong>fn21.</strong> Поясняющий текст.
+    </p>
+    <p>
+        Ссылка на сноску<sup><a href="#fn4">4</a></sup>:
+    </p>
+    <p style="padding-left:1em;">
+        <strong>Поясняемый текст[21]</strong>: Поясняемый текст<sup><a href="#fn21">21</a></sup>
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=15"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Разделитель"></a>
+    <h3>Разделитель<a href="#Разделитель" class="wiki-anchor">¶</a></h3>
+    <p>
+        Три дефиса <strong>---</strong>, отделенные переносами строк от остального текста, преобразуются в html-тэг &lt;hr&gt;.
+    </p>
+    <hr>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=16"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Атрибуты"></a>
+    <h2>Атрибуты<a href="#Атрибуты" class="wiki-anchor">¶</a></h2>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=17"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Идентификаторы"></a>
+    <h3>Идентификаторы<a href="#Идентификаторы" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>p(#id).</strong> -- присваивает абзацу идентификатор id.
+    </p>
+    <p>
+        Пример:
+    </p>
+    <p style="padding-left:1em;" id="id">
+        Данный абзац имеет идентификатор id, что может быть использовано, например, для создания <a href="/projects/redmine/wiki/RedmineTextFormattingRus#id" class="wiki-page">ссылки</a> на него.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=18"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Классы-css"></a>
+    <h3>Классы css<a href="#Классы-css" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>p(class).</strong> -- присваивает абзацу класс class.
+    </p>
+    <p>
+        Пример:
+    </p>
+    <p style="padding-left:1em;" class="ruby syntaxhl">
+        Данный абзац содержит фразу, оформленную в стиле <span class="fu">ruby функции.</span>
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=19"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Ссылки-на-объекты"></a>
+    <h2>Ссылки на объекты<a href="#Ссылки-на-объекты" class="wiki-anchor">¶</a></h2>
+    <p>
+        Чтобы предотвратить преобразование redmine-разметки в ссылку поставьте перед ней восклицательный знак.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=20"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Задачи"></a>
+    <h3>Задачи<a href="#Задачи" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>#124</strong>: <a href="/issues/124" class="issue status-5 priority-2 closed" title="bulk edit doesn't change the category or fixed version properties (Closed)">#124</a> -- ссылка перечеркнута, если задача закрыта.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=21"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Редакции"></a>
+    <h3>Редакции<a href="#Редакции" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>r758</strong>: <a href="/projects/redmine/repository/revisions/758" class="changeset" title="Search engine now only searches objects the user is allowed to view.">r758</a>
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=22"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Коммиты"></a>
+    <h3>Коммиты<a href="#Коммиты" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>commit:c6f4d0fd</strong>: commit:c6f4d0fd
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=23"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Wiki-страницы"></a>
+    <h3>Wiki-страницы<a href="#Wiki-страницы" class="wiki-anchor">¶</a></h3>
+    <p>
+        Ссылка отображается красной, если страницы не существует: <a href="/projects/redmine/wiki/Nonexistent_page?parent=RusRedmineTextFormatting" class="wiki-page new">Nonexistent page</a>.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>[[Guide]]</strong>: <a href="/projects/redmine/wiki/Guide" class="wiki-page">Guide</a>
+    </p>
+    <p style="padding-left:1em;">
+        <strong>[[Guide|User manual]]</strong>: <a href="/projects/redmine/wiki/Guide" class="wiki-page">User manual</a> -- ссылка с произвольным текстом.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>[[Guide#User-guide|User guide]]</strong>: <a href="/projects/redmine/wiki/Guide#User-guide" class="wiki-page">User guide</a> -- ссылка на определенный заголовок страницы.<br>
+        <em>После символа # в названии заголовка ставятся дефисы вместо пробелов.</em>
+    </p>
+    <p style="padding-left:1em;">
+        <strong>[[someproject:some-page]]</strong> -- ссылка на wiki-страницу из другого проекта.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>[[someproject:]]</strong> -- ссылка на главную страницу Wiki другого проекта.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=24"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Документы"></a>
+    <h3>Документы<a href="#Документы" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>document#17</strong> -- ссылка на документ по идентификатору.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>document:somedocument</strong> -- ссылка на документ по названию.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>document:"Some document"</strong> -- название заключается в двойные кавычки, если в нем есть пробелы.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>document:some_project:"Some document"</strong> -- ссылка по названию на доукумент в другом проекте.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=25"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Версии"></a>
+    <h3>Версии<a href="#Версии" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>version#3</strong> -- ссылка на версию по идентификатору.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>version:1.0.0</strong> -- ссылка на версию по названию.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>version:"1.0 beta 2"</strong> -- название заключается в двойные кавычки, если в нем есть пробелы.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=26"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Проекты"></a>
+    <h3>Проекты<a href="#Проекты" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>project#4</strong> или <strong>project:someid</strong> -- ссылка на проект по числовому или символьному идентификатору.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>project:someproject</strong> - ссылка на проект по названию.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>project:"Some project"</strong> - название заключается в двойные кавычки, если в нем есть пробелы.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=27"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Вложения"></a>
+    <h3>Вложения<a href="#Вложения" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>attachment:i0003.gif</strong>: <a href="/attachments/download/6527" class="attachment">i0003.gif</a> -- ссылка на файл, прикрепленный к данной странице.
+    </p>
+    <p style="padding-left:1em;" id="attach">
+        <em><strong>Важно</strong></em>: ссылки на прикрепленные файлы действуют только на той странице, к которой они прикреплены.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=28"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Репозиторий"></a>
+    <h3>Репозиторий<a href="#Репозиторий" class="wiki-anchor">¶</a></h3>
+    <p style="padding-left:1em;">
+        <strong>source:some/file</strong> -- ссылка на файл репозитория.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>source:some/file@52</strong> -- ссылка на редакцию файла репозитория.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>source:some/file#L120</strong> -- ссылка на строку файла репозитория.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>source:some/file@52#L120</strong> -- комбинация разметки.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>source:"some file@52#L120"</strong> -- двойные кавычки используются, если в URL присутствуют пробелы.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>export:some/file</strong> -- ссылка на скачивание файла.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=29"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="E-mail-ссылки"></a>
+    <h2>E-mail ссылки<a href="#E-mail-ссылки" class="wiki-anchor">¶</a></h2>
+    <p>
+        В ссылке на e-mail адрес можно указать тему, текст письма и адреса для отправки копий.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>"Email webmaster and admin":mailto:webmaster@foo.bar?cc=admin@foo.bar</strong>: <a href="mailto:webmaster@foo.bar?cc=admin@foo.bar">Email webmaster and admin</a> -- указание адреса для отправки копии.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>"Email someone for help":mailto:someone@foo.bar?subject=Website%20Help</strong>: <a href="mailto:someone@foo.bar?subject=Website%20Help">Email someone for help</a> -- указание темы письма.
+    </p>
+    <p style="padding-left:1em;">
+        <strong>"Email someone for help":mailto:someone@foo.bar?subject=Website%20Help&amp;body=My%20problem%20is%20</strong>: <a href="mailto:someone@foo.bar?subject=Website%20Help&amp;body=My%20problem%20is%20">Email someone for help</a> -- указание текста письма.
+    </p>
+    <p style="padding-left:1em;">
+        <em><strong>Важно</strong></em><strong>:</strong> вместо пробелов в ссылку следует вставлять код %20.
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=30"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Макросы"></a>
+    <h2>Макросы<a href="#Макросы" class="wiki-anchor">¶</a></h2>
+    <p>
+        Список доступных макросов и их описание (по-английски) вызывается макросом <strong>{{macro_list}}</strong>.
+    </p>
+    <ul class="toc right">
+        <li><a href="#Оформление-текстов">Оформление текстов</a>
+        <ul>
+            <li><a href="#Строчные-элементы">Строчные элементы</a>
+            <ul>
+                <li><a href="#Внешние-ссылки">Внешние ссылки</a></li>
+                <li><a href="#Акронимы">Акронимы</a></li>
+                <li><a href="#Стили-шрифтов">Стили шрифтов</a></li>
+                <li><a href="#Изображения">Изображения</a></li>
+            </ul>
+            </li>
+            <li><a href="#Блочные-элементы">Блочные элементы</a>
+            <ul>
+                <li><a href="#Заголовки">Заголовки</a></li>
+                <li><a href="#Абзацы">Абзацы</a></li>
+                <li><a href="#Pre-форматирование">Pre-форматирование</a></li>
+                <li><a href="#Цитаты">Цитаты</a></li>
+                <li><a href="#Списки">Списки</a></li>
+                <li><a href="#Таблицы">Таблицы</a></li>
+                <li><a href="#Сноски">Сноски</a></li>
+                <li><a href="#Разделитель">Разделитель</a></li>
+            </ul>
+            </li>
+            <li><a href="#Атрибуты">Атрибуты</a>
+            <ul>
+                <li><a href="#Идентификаторы">Идентификаторы</a></li>
+                <li><a href="#Классы-css">Классы css</a></li>
+            </ul>
+            </li>
+            <li><a href="#Ссылки-на-объекты">Ссылки на объекты</a>
+            <ul>
+                <li><a href="#Задачи">Задачи</a></li>
+                <li><a href="#Редакции">Редакции</a></li>
+                <li><a href="#Коммиты">Коммиты</a></li>
+                <li><a href="#Wiki-страницы">Wiki-страницы</a></li>
+                <li><a href="#Документы">Документы</a></li>
+                <li><a href="#Версии">Версии</a></li>
+                <li><a href="#Проекты">Проекты</a></li>
+                <li><a href="#Вложения">Вложения</a></li>
+                <li><a href="#Репозиторий">Репозиторий</a></li>
+            </ul>
+            </li>
+            <li><a href="#E-mail-ссылки">E-mail ссылки</a></li>
+            <li><a href="#Макросы">Макросы</a>
+            <ul>
+                <li><a href="#Содержание">Содержание</a></li>
+                <li><a href="#Дочерние-страницы">Дочерние страницы</a></li>
+                <li><a href="#Включение-текста">Включение текста</a></li>
+            </ul>
+            </li>
+            <li><a href="#Подсветка-кода">Подсветка кода</a></li>
+            <li><a href="#Заключение">Заключение</a></li>
+        </ul>
+        </li>
+    </ul>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=31"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Содержание"></a>
+    <h3>Содержание<a href="#Содержание" class="wiki-anchor">¶</a></h3>
+    <p>
+        <strong>{{TOC}}</strong> -- отображает содержание страницы, которое формируется автоматически на основе <a href="/projects/redmine/wiki/RedmineTextFormattingRus#%D0%97%D0%B0%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BA%D0%B8" class="wiki-page">заголовков</a>.<br>
+        <strong>{{&gt;TOC}}</strong> -- выравнивание блока содержания по правому краю:
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=32"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Дочерние-страницы"></a>
+    <h3>Дочерние страницы<a href="#Дочерние-страницы" class="wiki-anchor">¶</a></h3>
+    <p>
+        <strong>{{child_pages}}</strong> -- выводит список ссылок на все <a href="http://www.redmine.org/projects/redmine/wiki/RedmineWikis#Creating-sub-pages-parentchild-relationships" class="external">дочерние страницы</a> (англ.) данной страницы.<br>
+        <strong>{{child_pages(Foo)}}</strong> -- выводит список ссылок для указанной в скобках wiki-страницы <a href="/projects/redmine/wiki/Foo?parent=RusRedmineTextFormatting" class="wiki-page new">Foo</a>.<br>
+        <strong>{{child_pages(Foo, parent=1)}}</strong> -- начинает список со ссылки на родительскую страницу.
+    </p>
+    <p>
+        Пример последнего макроса для страницы <a href="/projects/redmine/wiki/Teams" class="wiki-page">Teams</a>:
+    </p>
+    <ul class="pages-hierarchy">
+        <li><a href="/projects/redmine/wiki/Teams">Teams</a>
+        <ul class="pages-hierarchy">
+            <li><a href="/projects/redmine/wiki/Documentation_Team">Documentation Team</a>
+            <ul class="pages-hierarchy">
+                <li><a href="/projects/redmine/wiki/NewDocsPlanning">NewDocsPlanning</a></li>
+            </ul>
+            </li>
+            <li><a href="/projects/redmine/wiki/Translation_Team">Translation Team</a></li>
+            <li><a href="/projects/redmine/wiki/UX_Team">UX Team</a>
+            <ul class="pages-hierarchy">
+                <li><a href="/projects/redmine/wiki/UXTeamMeeting0">UXTeamMeeting0</a></li>
+                <li><a href="/projects/redmine/wiki/UXTeamMeeting1">UXTeamMeeting1</a></li>
+                <li><a href="/projects/redmine/wiki/UXTeamMeeting2">UXTeamMeeting2</a></li>
+            </ul>
+            </li>
+        </ul>
+        </li>
+    </ul>
+    <p>
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=33"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Включение-текста"></a>
+    <h3>Включение текста<a href="#Включение-текста" class="wiki-anchor">¶</a></h3>
+    <p>
+        <strong>{{include(Foo)}}</strong> -- включает в данном месте текста содержимое страницы <a href="/projects/redmine/wiki/Foo?parent=RusRedmineTextFormatting" class="wiki-page new">Foo</a> без каких-либо специальных обозначений.
+    </p>
+    <p>
+        Пример:
+    </p>
+    <p>
+    </p>
+    <div class="flash error">
+        Error executing the <strong>include</strong> macro (Page not found)
+    </div>
+    <br>
+    Если включаемой страницы не существует или у пользователя нет к ней доступа, будет выведено сообщение об ошибке.
+    <p>
+    </p>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=34"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Подсветка-кода"></a>
+    <h2>Подсветка кода<a href="#Подсветка-кода" class="wiki-anchor">¶</a></h2>
+    <p>
+        Подсветка кода реализована на <a href="http://coderay.rubychan.de/" class="external">CodeRay</a> - скоростной библиотеке, написанной на Ruby. Она поддерживает синтаксис C, C++, CSS, Delphi, Diff, Groovy, HTML, Java, Javascript, JSON, Nitro-XHTML, PHP, Python, RHTML, Ruby, Scheme, SQL, XML и YAML.
+    </p>
+    <p>
+        Чтобы подсветить код, используйте следующую разметку:
+    </p>
+    <pre>
+        <code>&lt;pre&gt;&lt;code class="ruby"&gt; Place your code here. &lt;/code&gt;&lt;/pre&gt; </code>
+    </pre>
+    <p>
+        Пример:
+    </p>
+    <pre>
+        <code class="ruby syntaxhl"><span class="CodeRay"><span class="line-numbers"> 1</span><span class="comment"># The Greeter class</span>
+        <span class="line-numbers"> 2</span><span class="keyword">class</span><span class="class">Greeter</span>
+        <span class="line-numbers"> 3</span><span class="keyword">def</span><span class="function">initialize</span>(name) <span class="line-numbers"> 4</span><span class="instance-variable">@name</span> = name.capitalize <span class="line-numbers"> 5</span><span class="keyword">end</span>
+        <span class="line-numbers"> 6</span>
+        <span class="line-numbers"> 7</span><span class="keyword">def</span><span class="function">salute</span>
+        <span class="line-numbers"> 8</span> puts <span class="string"><span class="delimiter">"</span><span class="content">Hello </span><span class="inline"><span class="inline-delimiter">#{</span><span class="instance-variable">@name</span><span class="inline-delimiter">}</span></span><span class="content">!</span><span class="delimiter">"</span></span>
+        <span class="line-numbers"> 9</span><span class="keyword">end</span>
+        <span class="line-numbers"><strong>10</strong></span><span class="keyword">end</span>
+        </span></code>
+    </pre>
+    <div class="contextual" title="Edit this section">
+        <a href="/projects/redmine/wiki/RusRedmineTextFormatting/edit?section=35"><img alt="Edit" src="/images/edit.png?1322400085"></a>
+    </div>
+    <a name="Заключение"></a>
+    <h2>Заключение<a href="#Заключение" class="wiki-anchor">¶</a></h2>
+    <p>
+        Простейшие возможности разметки доступны через кнопки над полем ввода, однако, все варианты оформления применимы к любому тексту в Redmine: задаче, новости, комментарию и т.п.<br>
+        Историю изменений wiki-страницы можно посмотреть, нажав ссылку "История " вверху справа.<br>
+        В качестве примера всех перечисленных вариантов разметки можно рассмотреть исходный код данной статьи.
+    </p>
+    <p id="fn1" class="footnote">
+        <sup>1</sup> Синтаксис Textile поддерживается в Redmine не полностью. В частности, не преобразуются спецсимволы, например, (с) в ©, -- в — и т.п., а также не поддерживается разметка: атрибута {color:red} и блоков bq.., bc. и pre.
+    </p>
+    <p id="fn2" class="footnote">
+        <sup>2</sup> К сожалению, не работает для кириллицы: ИС(Информационные Системы)
+    </p>
+    <p id="fn3" class="footnote">
+        <sup>3</sup> Перенос строки в тексте преобразуется парсером в <code>&lt;br&gt;</code>.
+    </p>
+    <p id="fn4" class="footnote">
+        <sup>4</sup> Ссылка не обрабатывается если отделяется от поясняемой фразы: например [4] или "другой пример"[4].
+    </p>
+</div>
