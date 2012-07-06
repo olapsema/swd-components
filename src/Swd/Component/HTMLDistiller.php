@@ -72,6 +72,7 @@ class HTMLDistiller
 
     public function __construct($options = array())
     {
+        $this->allowed_tags = self::$common_tags;
         $this->options = array_merge ($this->options,$options);
     }
 
