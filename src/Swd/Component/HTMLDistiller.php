@@ -135,13 +135,16 @@ class HTMLDistiller
         //по умолчанию конвертируем ноду в текст путем передачи детей родительской ноде
         $pop_nodes = true;
 
+        $dnode = false;
         $children = array();
         //var_dump(sprintf("inside %s (%d)",$node->nodeName, $node->hasChildNodes()));
         if(in_array($node->nodeName,$this->allowed_tags)){
             //обрабатываем  и для элемента создаем соответствующий тег
             $pop_nodes = false;
         }
-        if($node->nodeType == XML_ELEMENT_NODE){
+        if($node->nodeType == XML_ELEMENT_NODE
+            //&& !$pop_nodes
+        ){
             $dnode = $dst_doc->createElement($this->getNodeName($node->nodeName));
             $this->copyAttributes($node,$dnode);
 
@@ -156,8 +159,9 @@ class HTMLDistiller
             return $dnode;
 
         }else{
-            //var_dump("bingo");
-            $dnode = false;
+            //var_dump($node);
+            //DOMCdataSection and others
+            return false;
         }
 
         /*
@@ -285,7 +289,14 @@ class HTMLDistiller
                     $attrib = $src_node->attributes->getNamedItem($attrib_name);
                     if($attrib){
                         $attr_node = $dst_node->ownerDocument->createAttribute($attrib->nodeName);
-                        $attr_node->value = $attrib->value;
+                        try{
+                            @$attr_node->nodeValue = @$attrib->nodeValue;
+                        }catch(\Exception $e){
+                            //var_dump($dst_node);
+                            //print_r($attrib);
+                            throw $e;
+                        }
+
                         $dst_node->setAttributeNode($attr_node);
                     }
                 }
