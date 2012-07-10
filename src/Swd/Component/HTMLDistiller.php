@@ -19,6 +19,7 @@ class HTMLDistiller
         "sup","u",
         "blockquote","br",
         "a",
+        "img",
         "li","ul","ol",
         "table","tbody","th","tr","td"
     );
@@ -64,8 +65,8 @@ class HTMLDistiller
     protected $common_tag_attributes = array(
         "table" => array("cellspacing","cellpadding", "border"),
         "td"=>array("colspan","rowspan"),
-        "a" =>array("href","target"),
-        "img" => array("src","width","height")
+        "a" =>array("href","target","title"),
+        "img" => array("src","alt","title","width","height")
     );
 
 
@@ -269,7 +270,7 @@ class HTMLDistiller
      **/
     protected function isEmptyProtected($name)
     {
-        $protected_tags = array("br");
+        $protected_tags = array("br","img","a");
         return !in_array($name,$protected_tags);
     }
 
