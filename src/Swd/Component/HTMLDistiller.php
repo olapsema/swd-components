@@ -125,9 +125,19 @@ class HTMLDistiller
 
         //getting html from body container without body tag
         $result = "";
-        foreach($dst_root->childNodes as $element){
-            $result .=  $res_doc->saveHTML($element);
+        if(version_compare(PHP_VERSION, '5.3.6', '>=')){
+            foreach($dst_root->childNodes as $element){
+                $result .=  $res_doc->saveHTML($element);
+            }
+        }else{
+            $result = $res_doc->saveHTML();
+            if(preg_match("@(?:.*)<body>(.*)</body>(?:.*)@ims",$result,$match))
+            {
+                $result = $match[1];
+            }
+
         }
+
         return $result;
     }
 
