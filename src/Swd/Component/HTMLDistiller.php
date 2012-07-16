@@ -234,6 +234,8 @@ class HTMLDistiller
         //var_dump($children);
 
         if(empty($children)){
+            if($pop_nodes) return false;
+
             if( !$dnode->hasChildNodes()
                 && $this->isEmptyProtected($dnode->nodeName)
                 && $this->options["remove_empty_tags"]
