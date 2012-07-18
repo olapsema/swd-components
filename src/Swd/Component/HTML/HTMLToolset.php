@@ -17,6 +17,12 @@ class HTMLToolset
     public function __construct()
     {
         $this->substring_pos = 0;
+        $this->callbacks = array_combine(array("substring"),array(false));
+    }
+
+    public function setCallback($cat,$callbacks)
+    {
+        $this->callbacks[$cat] = $callbacks;
     }
 
     public function shrink($html,$length)
@@ -29,14 +35,16 @@ class HTMLToolset
         $doc = $this->getDocument($html);
         $root = $this->getRootNode($doc);
 
-        $this->substringNode($root,$from,$length,false);
+        $this->substringNode($root,$from,$length,$this->callbacks["substring"]);
         return $this->getDocumentHTML($doc);
     }
 
+    /*
     public function strlength($html)
     {
 
     }
+    */
 
     private $substring_pos;
 
@@ -48,7 +56,6 @@ class HTMLToolset
 
     private function substringNode($node,$start,$end,$callbacks = false)
     {
-
         if(in_array($node->nodeName,$this->substr_ignore_tags)){
             //обрабатываем  и для элемента создаем соответствующий тег
             return self::SUBST_PRESERVE;
@@ -68,9 +75,12 @@ class HTMLToolset
             if($start > $cur_pos){
                 //cut top of text
                 if($node->nodeType == XML_TEXT_NODE){
-                    $node_text = trim($node->wholeText);
-                    if(!empty($node_text)){
-                        $node_text = mb_substr($node_text,($start-$cur_pos));
+                    $whole_text = trim($node->wholeText);
+                    if(!empty($whole_text)){
+                        $node_text = mb_substr($whole_text,($start-$cur_pos));
+                        if(!empty($callbacks) && isset($callbacks["start"]) && is_callable($callbacks["start"])){
+                            call_user_func_array($callbacks["start"],array(&$node_text,$whole_text,$cur_pos,$start));
+                        }
                         $node->replaceData(0,$node->length,$node_text);
                     }
                 }
@@ -87,10 +97,13 @@ class HTMLToolset
                 if($end < $cur_pos+$length){
 
                     if($node->nodeType == XML_TEXT_NODE){
-                        $node_text = trim($node->wholeText);
-                        if(!empty($node_text)){
-                            $node_text = mb_substr($node_text,0,($end - $cur_pos));
+                        $whole_text = trim($node->wholeText);
+                        if(!empty($whole_text)){
+                            $node_text = mb_substr($whole_text,0,($end - $cur_pos));
                             //var_dump($node_text);
+                            if(!empty($callbacks) && isset($callbacks["end"]) && is_callable($callbacks["end"])){
+                                call_user_func_array($callbacks["end"],array(&$node_text,$whole_text,$cur_pos,$end));
+                            }
                             $node->replaceData(0,$node->length,$node_text);
                         }
                     }
