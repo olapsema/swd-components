@@ -35,7 +35,7 @@ class HTMLToolset
         $doc = $this->getDocument($html);
         $root = $this->getRootNode($doc);
 
-        $this->substringNode($root,$from,$length,$this->callbacks["substring"]);
+        $this->substNode($root,$from,$length,$this->callbacks["substring"]);
         return $this->getDocumentHTML($doc);
     }
 
@@ -54,6 +54,12 @@ class HTMLToolset
         return $this->substringNode($node,$start,$end,$callbacks);
     }
 
+    /**
+     * Не может использоваться самостоятельно только в substNode
+     *
+     * @return void
+     * @author skoryukin
+     **/
     private function substringNode($node,$start,$end,$callbacks = false)
     {
         if(in_array($node->nodeName,$this->substr_ignore_tags)){
