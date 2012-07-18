@@ -81,7 +81,7 @@ class HTMLToolset
             if($start > $cur_pos){
                 //cut top of text
                 if($node->nodeType == XML_TEXT_NODE){
-                    $whole_text = trim($node->wholeText);
+                    $whole_text = $this->trimHTML($node->wholeText);
                     if(!empty($whole_text)){
                         $node_text = mb_substr($whole_text,($start-$cur_pos));
                         if(!empty($callbacks) && isset($callbacks["start"]) && is_callable($callbacks["start"])){
@@ -103,7 +103,7 @@ class HTMLToolset
                 if($end < $cur_pos+$length){
 
                     if($node->nodeType == XML_TEXT_NODE){
-                        $whole_text = trim($node->wholeText);
+                        $whole_text = $this->trimHTML($node->wholeText);
                         if(!empty($whole_text)){
                             $node_text = mb_substr($whole_text,0,($end - $cur_pos));
                             //var_dump($node_text);
@@ -180,7 +180,8 @@ class HTMLToolset
         }elseif($node->nodeType == XML_TEXT_NODE){
             //may be use isWhitespaceInElementContent
             //var_dump($node->wholeText);
-            $node_text = trim($node->wholeText);
+            //$node_text = trim($node->wholeText);
+            $node_text = $this->trimHTML($node->wholeText);
             if(!empty($node_text)){
                 $result = mb_strlen($node_text);
             }
@@ -195,6 +196,18 @@ class HTMLToolset
         //DOMCdataSection and others are not counted
         return $result;
 
+
+    }
+
+    public function trimHtml($text)
+    {
+        //blank near brackets
+        //$result = preg_replace("@(?:(?=\>)*[\s]{2,})|(?:[\s]{2,}(?=\<)*)@im"," ",$text);
+        $result = preg_replace("@(?<=\>)*[\s]{2,}(?=\<)*@im"," ",$text);
+        //between to symbols
+        //$result = preg_replace("@(?<=[\w])(?:[\s]|[^\>\<\"]){2,}(?=[\w]+)@im"," ",$result);
+        //var_dump($result);
+        return $result;
 
     }
 
