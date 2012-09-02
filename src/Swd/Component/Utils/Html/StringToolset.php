@@ -1,10 +1,10 @@
 <?php
 
-namespace Swd\Component\HTML;
+namespace Swd\Component\Utils\Html;
 
 use DOMDocument,DOMXPath;
 
-class HTMLToolset
+class StringToolset
 {
 
     const SUBST_NOMOD = 0;

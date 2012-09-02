@@ -1,10 +1,16 @@
 <?php
 
-namespace Swd\Component\HTML;
+namespace Swd\Component\Utils\Html;
 
 
 
-class HTMLEntitiesResolver
+/**
+ * Конвертация UTF-8 в сущности (в основном те, что имеют имена)
+ *
+ * @return void
+ * @author skoryukin
+ **/
+class EntitiesConverter
 {
     static $ent_table;
     static $default_replace = array("common","math");
@@ -14,7 +20,6 @@ class HTMLEntitiesResolver
      * Превращает UTF-8 символы  в html сущности
      *
      * @return void
-     * @author skoryukin
      **/
     static public function encode($text,$tables = false)
     {
