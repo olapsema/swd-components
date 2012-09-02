@@ -5,7 +5,7 @@ namespace Swd\Component;
 use DOMDocument,DOMXPath;
 
 /**
- * Зачистка HTML от нежедательных тегов и элементов
+ * Зачистка HTML от нежелательных тегов и элементов
  *
  * @packaged default
  * @author skoryukin
