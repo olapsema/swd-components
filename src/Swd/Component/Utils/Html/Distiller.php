@@ -83,6 +83,24 @@ class Distiller
 
     }
 
+    public function addTagAllowedAttributes($tag_name,$attributes)
+    {
+        $attrib = $this->getTagAllowedAttributes($tag_name);
+        $attrib = array_merge($attrib,$attributes);
+        $this->setTagAllowedAttributes($tag_name,$attrib);
+    }
+    public function setTagAllowedAttributes($tag_name,$attributes)
+    {
+        $this->common_tag_attributes[$tag_name] = $attributes;
+    }
+
+    public function getTagAllowedAttributes($tag_name)
+    {
+        if(!array_key_exists($tag_name,$this->common_tag_attributes))
+            return array();
+        return $this->common_tag_attributes[$tag_name];
+    }
+
     public function process($html)
     {
         //echo "<html><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><body>";
