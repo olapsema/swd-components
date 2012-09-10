@@ -1,7 +1,9 @@
 {
     "name": "swd/components",
     "type": "library",
-    "version": "dev-master"
+    "version": "dev-master",
+    "description": "Components for fast development",
+    "licence": "private",
     "autoload": {
         "psr-0": {
             "Swd\\Component": "src/" 
