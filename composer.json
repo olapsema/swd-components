@@ -1,0 +1,10 @@
+{
+    "name": "swd/components",
+    "type": "library",
+    "version": "dev-master"
+    "autoload": {
+        "psr-0": {
+            "Swd\\Component": "src/" 
+        }
+    }
+}
