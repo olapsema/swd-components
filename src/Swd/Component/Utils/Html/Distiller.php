@@ -1,6 +1,6 @@
 <?php
 
-namespace Swd\Component;
+namespace Swd\Component\Utils\Html;
 
 use DOMDocument,DOMXPath;
 
@@ -10,7 +10,7 @@ use DOMDocument,DOMXPath;
  * @packaged default
  * @author skoryukin
  **/
-class HTMLDistiller
+class Distiller
 {
     public static $common_tags = array(
         "div","p","span",
@@ -83,7 +83,7 @@ class HTMLDistiller
 
     }
 
-    public function processHTML($html)
+    public function process($html)
     {
         //echo "<html><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><body>";
         $html = sprintf($this->doc_template,$html);
