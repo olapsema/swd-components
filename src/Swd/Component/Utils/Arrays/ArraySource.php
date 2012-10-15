@@ -1,6 +1,6 @@
 <?php
 
-namespace Swd\Component\Utils\Array;
+namespace Swd\Component\Utils\Arrays;
 
 /**
  * Простой адаптер для получения данных из массива

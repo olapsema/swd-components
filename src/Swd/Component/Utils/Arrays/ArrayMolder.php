@@ -1,5 +1,5 @@
 <?php
-namespace Swd\Component\Utils\Array;
+namespace Swd\Component\Utils\Arrays;
 
 use  Doctrine\Common\Util\Inflector;
 
