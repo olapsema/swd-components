@@ -11,6 +11,7 @@ class StringToolset
     const SUBST_START = 1;
     const SUBST_END   = 2;
     const SUBST_PRESERVE = 4;
+    const SUBST_REMOVE = 8;
 
     protected $substr_ignore_tags = array("img");
 
@@ -36,6 +37,47 @@ class StringToolset
         $root = $this->getRootNode($doc);
 
         $this->substNode($root,$from,$length,$this->callbacks["substring"]);
+        return $this->getDocumentHTML($doc);
+    }
+
+    /**
+     *  Calculate text length in html document
+    **/
+    public function strlen($html)
+    {
+        $doc = $this->getDocument($html);
+        $root = $this->getRootNode($doc);
+
+        $length = $this->strlenNodeTree($root);
+
+        return $length;
+    }
+
+    protected function strlenNodeTree($node)
+    {
+        $length = $this->strlenNode($node);
+        if($node->hasChildNodes()){
+            foreach($node->childNodes as $child){
+                $length+= $this->strlenNodeTree($child);
+            }
+        }
+
+        return $length;
+    }
+
+    /**
+     * substring without block cutting at the end
+     *
+    **/
+    public function substringBlock($html,$from,$length)
+    {
+        $doc = $this->getDocument($html);
+        $root = $this->getRootNode($doc);
+
+        $callbacks = array("end"=>function(&$node_text,$whole_text,$cur_pos,$end){
+            $node_text = $whole_text;
+        });
+        $this->substNode($root,$from,$length,$callbacks);
         return $this->getDocumentHTML($doc);
     }
 
@@ -88,6 +130,10 @@ class StringToolset
                             call_user_func_array($callbacks["start"],array(&$node_text,$whole_text,$cur_pos,$start));
                         }
                         $node->replaceData(0,$node->length,$node_text);
+                        if(empty($node_text) && !$node->hasChildNodes())
+                        {
+                            $result = $result | self::SUBST_REMOVE;
+                        }
                     }
                 }
             }
@@ -108,9 +154,18 @@ class StringToolset
                             $node_text = mb_substr($whole_text,0,($end - $cur_pos));
                             //var_dump($node_text);
                             if(!empty($callbacks) && isset($callbacks["end"]) && is_callable($callbacks["end"])){
-                                call_user_func_array($callbacks["end"],array(&$node_text,$whole_text,$cur_pos,$end));
+                                $cb_result = call_user_func_array($callbacks["end"],array(&$node_text,$whole_text,$cur_pos,$end));
+                                if(!is_null($cb_result)){
+                                    $result = $result | $cb_result;
+                                }
                             }
                             $node->replaceData(0,$node->length,$node_text);
+                            //if just in the start of the node && all text was captured in previos node this node will preserved,
+                            //so fix this situation
+                            if(empty($node_text) && !$node->hasChildNodes())
+                            {
+                                $result = $result | self::SUBST_REMOVE;
+                            }
                         }
                     }
                 }
@@ -135,6 +190,11 @@ class StringToolset
                 $child_result = $this->substringNode($child,$start,$end,$callbacks);
                 $outside_zone  = !($this->substring_pos > $start && $this->substring_pos < $end );
 
+                if(($child_result & self::SUBST_REMOVE)){
+                    // удаляем дочернюю ноду, как ненужную
+                    $remove[] = $child;
+                    continue;
+                }
                 if($child_result & self::SUBST_PRESERVE){
                     //ноду придется оставить и себя, как родителя
                     $result = $result | self::SUBST_PRESERVE;
@@ -204,6 +264,7 @@ class StringToolset
         //blank near brackets
         //$result = preg_replace("@(?:(?=\>)*[\s]{2,})|(?:[\s]{2,}(?=\<)*)@im"," ",$text);
         $result = preg_replace("@(?<=\>)*[\s]{2,}(?=\<)*@im"," ",$text);
+        $result = preg_replace("@(?<=\>)*[\n]*(?=\<)*@im","",$result);//newline
         //between to symbols
         //$result = preg_replace("@(?<=[\w])(?:[\s]|[^\>\<\"]){2,}(?=[\w]+)@im"," ",$result);
         //var_dump($result);
