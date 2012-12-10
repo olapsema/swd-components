@@ -269,8 +269,8 @@ class StringToolset
     {
         //blank near brackets
         //$result = preg_replace("@(?:(?=\>)*[\s]{2,})|(?:[\s]{2,}(?=\<)*)@im"," ",$text);
-        $result = preg_replace("@(?<=\>)*[\s]{2,}(?=\<)*@im"," ",$text);
-        $result = preg_replace("@(?<=\>)*[\n]*(?=\<)*@im","",$result);//newline
+        $result = preg_replace("@[\s]{2,}@im"," ",$text);
+        $result = preg_replace("@[\n]*@im","",$result);//newline
         //between to symbols
         //$result = preg_replace("@(?<=[\w])(?:[\s]|[^\>\<\"]){2,}(?=[\w]+)@im"," ",$result);
         //var_dump($result);
