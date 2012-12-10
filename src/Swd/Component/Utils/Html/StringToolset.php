@@ -69,7 +69,7 @@ class StringToolset
      * substring without block cutting at the end
      *
     **/
-    public function substringBlock($html,$from,$length)
+    public function substringBlock($html,$from,$length = false)
     {
         $doc = $this->getDocument($html);
         $root = $this->getRootNode($doc);
@@ -188,7 +188,13 @@ class StringToolset
                 }
 
                 $child_result = $this->substringNode($child,$start,$end,$callbacks);
-                $outside_zone  = !($this->substring_pos > $start && $this->substring_pos < $end );
+
+                if($end === false){
+                    $outside_zone  = ($this->substring_pos < $start);
+                }else{
+                    $outside_zone  = !($this->substring_pos > $start && $this->substring_pos < $end );
+                }
+
 
                 if(($child_result & self::SUBST_REMOVE)){
                     // удаляем дочернюю ноду, как ненужную
