@@ -39,7 +39,7 @@ class TextUtils {
     static public function cleanup($string)
     {
         // replace non letter or digits by -
-        $string = preg_replace('#[^\\pL\d]+#u', '-', $string);
+        $string = preg_replace('#[^\\pL\d\s]+#u', '-', $string);
 
         // trim
         $string = trim($string, '-');
