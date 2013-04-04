@@ -1,7 +1,7 @@
 <?php
 namespace Swd\Component\Utils\Arrays;
 
-use  Doctrine\Common\Util\Inflector;
+use  Swd\Component\Utils\Inflector;
 
 class  ArrayMolder {
 
@@ -182,5 +182,6 @@ class  ArrayMolder {
         }
         return $result;
     }
+
 }
 
