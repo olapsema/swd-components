@@ -10,6 +10,9 @@ class  ArrayMolder {
     **/
     static public function indexArray($array_val,$field = "id",$multiple = false)
     {
+        if(!is_array($array_val))
+            return array();
+
         $result = array();
         if(strlen($field)>0 && is_array($array_val)){
             foreach($array_val as $row){
@@ -30,6 +33,9 @@ class  ArrayMolder {
     **/
     static public function flattenArray(&$array_val,$key_field = "id",$field = "name" )
     {
+        if(!is_array($array_val))
+            return array();
+
         $result = array();
         if(strlen($field)>0 && strlen($key_field)>0){
             foreach($array_val as $row){
@@ -46,6 +52,9 @@ class  ArrayMolder {
      **/
     static public function collectArrayValue($array_val,$key='id')
     {
+        if(!is_array($array_val))
+            return array();
+
         $result = array();
 
         foreach($array_val as $val){
@@ -65,6 +74,9 @@ class  ArrayMolder {
     **/
     static public function flattenMultiple($array_obj,$key_field = "id",$field = "name" , $suppress_error = true)
     {
+        if(!is_array($array_obj))
+            return array();
+
         $method = Inflector::camelize("get_".$field);
         $key_method = Inflector::camelize("get_".$key_field);
 
@@ -101,6 +113,9 @@ class  ArrayMolder {
     **/
     static public function flatten($array_obj,$key_field = "id",$field = "name" , $suppress_error = true)
     {
+        if(!is_array($array_obj))
+            return array();
+
         $method = Inflector::camelize("get_".$field);
         $key_method = Inflector::camelize("get_".$key_field);
 
@@ -128,6 +143,9 @@ class  ArrayMolder {
      **/
     static public function collect($array_obj,$field = "id", $suppress_error = true)
     {
+        if(!is_array($array_obj))
+            return array();
+
         $method = Inflector::camelize("get_".$field);
         $result = array();
         foreach($array_obj as $row){
@@ -156,6 +174,9 @@ class  ArrayMolder {
      **/
     static public function index($array_obj , $field = "id",$multiple = false ,$suppress_error = true)
     {
+        if(!is_array($array_obj))
+            return array();
+
         $method = Inflector::camelize("get_".$field);
         $result = array();
         foreach($array_obj as $row){
@@ -174,7 +195,7 @@ class  ArrayMolder {
             }
 
             if($multiple){
-                    $result[$key][] = $row;
+                $result[$key][] = $row;
             }else{
 
                 $result[$key] = $row;
