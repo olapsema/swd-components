@@ -83,6 +83,11 @@ class Distiller
 
     }
 
+    public function setDisallowedTags($tags)
+    {
+        $this->allowed_tags = array_diff($this->allowed_tags,$tags);
+    }
+
     public function addTagAllowedAttributes($tag_name,$attributes)
     {
         $attrib = $this->getTagAllowedAttributes($tag_name);
