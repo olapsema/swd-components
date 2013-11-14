@@ -16,7 +16,7 @@ class FlatMenuHelper extends ArrayIterator {
         $defaults = array('selected'=>false);
 
         foreach($array as $k => $item){
-            $item[$k] = array_merge($defaults,$item);
+            $array[$k] = (object)array_merge($defaults,$item);
         }
         parent::__construct($array,$flags);
     }
@@ -25,7 +25,7 @@ class FlatMenuHelper extends ArrayIterator {
     {
         $paths = array();
         foreach($this as $k => $item ){
-            $paths[$k] =  parse_url($item['url'],PHP_URL_PATH);
+            $paths[$k] =  parse_url($item->url,PHP_URL_PATH);
         }
 
         arsort($paths,SORT_STRING);
@@ -33,7 +33,7 @@ class FlatMenuHelper extends ArrayIterator {
 
         foreach($paths as $k => $item_path){
             if(strpos($path,$item_path) === 0){
-                $this[$k]['selected'] = true;
+                $this[$k]->selected = true;
                 break;
             }
         }
@@ -43,12 +43,25 @@ class FlatMenuHelper extends ArrayIterator {
     {
 
         $url = $this->getRouter()->generate($route_name,$route_params,$abs);
-        parent::append(array('name'=>$title,'route'=>array('name'=>$route_name,'params'=>$route_params,'absolute'=>$abs),'url'=>$url,'selected'=>false));
+        $item = array(
+            'name'=>$title,
+            'route'=>array('name'=>$route_name,'params'=>$route_params,'absolute'=>$abs),
+            'url'=>$url,
+            'selected'=>false
+        );
+        $item = (object)$item;
+        parent::append($item);
+
+        return $item;
     }
 
     public function addUrl($title,$url)
     {
-        parent::append(array('name'=>$title,'url'=>$url,'selected' => false));
+        $item = array('name'=>$title,'url'=>$url,'selected' => false);
+
+        $item = (object)$item;
+        parent::append($item);
+        return $item;
     }
 
     public function setRouter($router){
