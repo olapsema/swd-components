@@ -183,5 +183,203 @@ class ArrayFlattenerTest extends \PHPUnit_Framework_TestCase {
 
     }
 
+
+    /**
+     * @dataProvider getUnwrapItems
+     *
+     **/
+    public function testUnwrap($sample,$origin,$level)
+    {
+        $result = ArrayFlattener::unwrap($sample,$level);
+        $this->assertEquals($origin,$result);
+
+    }
+
+    public function getUnwrapItems()
+    {
+        $result = array();
+
+        $result [] = array(
+            //sample
+            array(//level0
+                array (
+                     //level1
+                     'id'=>12,
+                     'alfs'=>array(
+                             //level2
+                             'a' => array(
+                                 'info'=>'x',
+                                 'num'=>array(
+                                    //level3
+                                     1 => array(
+                                         'cx'=>1,
+                                     ),
+                                     2 => array(
+                                         'dx'=>2,
+                                         'ex'=>2,
+                                     )
+                                 )
+                             )
+                     )
+                 )
+             ),
+            //origin
+             array(
+                 array(
+                     'id'=>12,
+                     'info'=>'x',
+                     'alfs'=>'a',
+                     'num' => 1,
+                     'cx'=>1
+                 ),
+                 array(
+                     'id'=>12,
+                     'info'=>'x',
+                     'alfs'=>'a',
+                     'num' => 2,
+                     'dx'=>2,
+                     'ex'=>2,
+                 ),
+                 //array(
+                     //'id'=>12,
+                     //'info'=>'x',
+                     //'alfs'=>'a',
+                     //'num' => 2,
+                     //'ex'=>2,
+                 //)
+             ),
+             //level
+             false
+         );
+
+
+        $result[] = array(
+            //sample
+
+
+            array(//level0
+                array(//level1
+                    "program_id"=> 123,
+                    "date"=> array(
+                      "2014-02-02" => array (//level2
+                        "events"=> array("hit"=>1)
+                       ),
+                      "2014-02-03"=>  array(
+                        "events"=>  array(
+                          "hit"=> 1,
+                          "activation"=> 1,
+                        )
+                      )
+                    )
+                ),
+                array(
+                    "program_id"=> 124,
+                    "date"=>  array(
+                      "2014-02-03"=>  array(
+                        "events"=>  array(
+                          "hit"=> 1,
+                          "activation"=> 1
+                        )
+                      )
+                    )
+                ),
+            ),
+            //origin
+            array(
+                array(
+                    "program_id"=> 123,
+                    "date"=>'2014-02-02',
+                    "events" =>array("hit"=>1),
+                ),
+                array(
+                    "program_id"=> 123,
+                    "date"=>'2014-02-03',
+                    "events"=>  array(
+                      "hit"=> 1,
+                      "activation"=> 1,
+                    )
+                ),
+                array(
+                    "program_id"=> 124,
+                    "date"=>'2014-02-03',
+                    "events"=>  array(
+                      "hit"=> 1,
+                      "activation"=> 1
+                    )
+                ),
+
+            ),
+            //level
+           3
+        );
+
+
+
+        //max level
+        $result [] = array(
+            array(
+                array(
+                    "program_id"=> 123,
+                    "date"=> array(
+                          "2014-02-03"=>  array(
+                            "events"=>  array(     "hit"=> 1,   "activation"=> 1,        )
+                           )
+                    )
+                )
+            ),
+            array(
+                array(
+                    "program_id"=> 123,
+                    "date" => "2014-02-03",
+                    "events"=>  array(     "hit"=> 1,   "activation"=> 1,        )
+                ),
+            ),
+            false //  same as 2
+        );
+
+
+        //no changes
+        $result [] = array(
+            array(
+                array(
+                    "program_id"=> 123,
+                    "date"=> array(
+                          "2014-02-03"=>  array(
+                            "events"=>  array(     "hit"=> 1,   "activation"=> 1,        )
+                           )
+                    )
+                )
+            ),
+            array(
+                array(
+                    "program_id"=> 123,
+                    "date"=> array(
+                          "2014-02-03"=>  array(
+                            "events"=>  array(     "hit"=> 1,   "activation"=> 1,        )
+                           )
+                    )
+                ),
+            ),
+            1
+        );
+
+
+        $result [] = array(
+            array(
+                array(
+                    'a'=>1
+                )
+            ),
+            array(
+                array(
+                    'a'=>1
+                )
+            ),
+            false
+        );
+
+        return $result;
+    }
+
 }
 
