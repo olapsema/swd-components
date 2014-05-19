@@ -11,7 +11,11 @@
 
 spl_autoload_register(function ($class) {
     if (0 === strpos(ltrim($class, '/'), 'Swd\Component')) {
-        if (file_exists($file = __DIR__.'/../'.substr(str_replace('\\', '/', $class), strlen('Swd\Component')).'.php')) {
+        //$file = __DIR__.'/../'.substr(str_replace('\\', '/', $class), strlen('Swd\Component')).'.php';
+        $file = __DIR__.'/../src/'.str_replace('\\', '/', $class).'.php';
+        //var_dump($file);
+
+        if (file_exists($file)) {
             require_once $file;
         }
     }
