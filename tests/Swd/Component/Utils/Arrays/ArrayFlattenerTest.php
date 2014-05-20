@@ -363,6 +363,29 @@ class ArrayFlattenerTest extends \PHPUnit_Framework_TestCase {
             1
         );
 
+        //context saved on 2 level
+        $result [] = array(
+            array(
+                array(//level1
+                    "program_id"=> 123,
+                    "date"=> array(
+                            //level
+                          "2014-02-03"=>  array(
+                            "events"=>  array(     "hit"=> 1,   "activation"=> 1,        )
+                           )
+                    )
+                )
+            ),
+            array(
+                array(
+                    "program_id"=> 123,
+                    "date" =>"2014-02-03",
+                    "events"=>  array(     "hit"=> 1,   "activation"=> 1,        )
+                ),
+            ),
+            2
+        );
+
 
         $result [] = array(
             array(

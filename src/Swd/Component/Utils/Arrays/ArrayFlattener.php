@@ -36,7 +36,7 @@ class ArrayFlattener {
         //var_dump('level: '.$level,$context,$item);
         if($stop_level !== false && $level >= $stop_level ){
             //var_dump('xxx');
-            return array(array_merge($item));
+            return array(array_merge($context,$item));
         }
 
         $path = null;
