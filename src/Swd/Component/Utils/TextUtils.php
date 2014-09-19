@@ -38,6 +38,7 @@ class TextUtils {
      **/
     static public function cleanup($string)
     {
+        $string = trim($string, ' -_');
         // replace non letter or digits by -
         $string = preg_replace('#[^\\pL\d\s]+#u', '-', $string);
 
