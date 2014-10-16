@@ -65,6 +65,9 @@ class TextUtils {
 
         $string = mb_strtolower($string);
 
+        // trim
+        $string = trim($string, '-');
+
         return $string;
     }
 }
