@@ -188,11 +188,11 @@ class  ArrayMolder {
                 $key = $row->$method();
 
             }else{
-                if(isset($row[$field])){
-                    $key = $row[$field];
-                }elseif(!$suppress_error){
-                    throw new \Exception(sprintf("No key %s in array with keys %s",$field,implode(", ",array_keys($row))));
+                if(!isset($row[$field])){
+                    if(!$suppress_error)
+                        throw new \Exception(sprintf("No key %s in array with keys %s",$field,implode(", ",array_keys($row))));
                 }
+                $key = $row[$field];
             }
 
             if($multiple){
