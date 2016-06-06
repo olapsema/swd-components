@@ -11,8 +11,9 @@ class  ArrayMolder {
     **/
     static public function indexArray($array_val,$field = "id",$multiple = false)
     {
-        if(!is_array($array_val) && !($array_val instanceof ArrayAccess))
+        if(!is_array($array_val) && !($array_val instanceof ArrayAccess)){
             return array();
+        }
 
         $result = array();
         if(strlen($field)>0 && is_array($array_val)){
@@ -173,33 +174,45 @@ class  ArrayMolder {
      *
      * @return array
      **/
-    static public function index($array_obj , $field = "id",$multiple = false ,$suppress_error = true)
+    static public function index($items , $field = "id",$multiple = false ,$suppress_error = true)
     {
-        if(!is_array($array_obj) && !($array_obj instanceof Traversable))
+        if(!is_array($items) && !($items instanceof Traversable)){
             return array();
+        }
 
-        $method = Inflector::camelize("get_".$field);
         $result = array();
-        foreach($array_obj as $row){
-            if(is_object($row)){
-                if(!method_exists($row,$method) && !$suppress_error){
-                    throw new \Exception(sprintf("Method %s::%s not exists",get_class($row),$method));
-                }
-                $key = $row->$method();
+        if(is_array(reset($items))){
+            foreach($items as $row){
 
-            }else{
-                if(!isset($row[$field])){
-                    if(!$suppress_error)
-                        throw new \Exception(sprintf("No key %s in array with keys %s",$field,implode(", ",array_keys($row))));
+                //if(!isset($row[$field])){
+                    //if(!$suppress_error){
+                        //throw new \Exception(sprintf("No key %s in array with keys %s",$field,implode(", ",array_keys($row))));
+                    //}
+                    //continue;
+                //}
+
+                if($multiple){
+                    $result[$row[$field]][] = $row;
+                }else{
+                    $result[$row[$field]] = $row;
                 }
-                $key = $row[$field];
             }
+        }else{
+            $method = Inflector::camelize("get_".$field);
 
-            if($multiple){
-                $result[$key][] = $row;
-            }else{
+            foreach($items as $row){
+                //if(!method_exists($row,$method)){
+                    //if( !$suppress_error){
+                        //throw new \Exception(sprintf("Method %s::%s not exists",get_class($row),$method));
+                    //}
+                //}
 
-                $result[$key] = $row;
+                if($multiple){
+                    $result[$row->$method()][] = $row;
+                }else{
+
+                    $result[$row->$method()] = $row;
+                }
             }
         }
         return $result;
