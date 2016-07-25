@@ -22,7 +22,7 @@ class ArraySource  implements \IteratorAggregate
     public function getItems($keys)
     {
         if(!is_array($keys))
-            throw new \InvalidArgumentException(sprintf("Array expected '%s' given",gettype($items)));
+            throw new \InvalidArgumentException(sprintf("Array expected '%s' given",gettype($keys)));
 
         if(empty($keys))
                 throw new \LogicException("Method argument must not be empty");

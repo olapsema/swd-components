@@ -19,8 +19,10 @@ class EntitiesConverter
     /**
      * Превращает UTF-8 символы  в html сущности
      *
-     * @return void
-     **/
+     * @param $text
+     * @param bool $tables
+     * @return mixed
+     */
     static public function encode($text,$tables = false)
     {
         self::init();

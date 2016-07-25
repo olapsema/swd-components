@@ -90,8 +90,10 @@ class ArrayFlattener {
     /**
      * Разворачивает все подмассивы в основной для каждого элемента
      *
+     * @param $data
+     * @param bool $delimeter
      * @return array
-     **/
+     */
     public static function flatten($data,$delimeter = false)
     {
         foreach($data as $k => $item){
