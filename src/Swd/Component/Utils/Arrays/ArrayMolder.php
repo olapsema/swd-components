@@ -8,7 +8,11 @@ class  ArrayMolder {
 
     /**
      *  Возвращает ассоциативный массив вида ключ =>  ряд
-    **/
+     * @param $array_val
+     * @param string $field
+     * @param bool $multiple
+     * @return array
+     */
     static public function indexArray($array_val,$field = "id",$multiple = false)
     {
         if(!is_array($array_val) && !($array_val instanceof ArrayAccess))
@@ -30,8 +34,11 @@ class  ArrayMolder {
     /**
      *  Возвращает плоский массив вида ключ => значение
      *
+     * @param $array_val
+     * @param string $key_field
+     * @param string $field
      * @return array
-    **/
+     */
     static public function flattenArray(&$array_val,$key_field = "id",$field = "name" )
     {
         if(!is_array($array_val) && !($array_val instanceof ArrayAccess))
@@ -49,8 +56,10 @@ class  ArrayMolder {
     /**
      * Возвращает массив значений $key
      *
-     * @return void
-     **/
+     * @param $array_val
+     * @param string $key
+     * @return array
+     */
     static public function collectArrayValue($array_val,$key='id')
     {
         if(!is_array($array_val) && !($array_val instanceof ArrayAccess))
@@ -71,8 +80,13 @@ class  ArrayMolder {
      *  Возвращает плоский массив вида ключ => array(значение1,...)
      *  работает с объектами
      *
+     * @param $array_obj
+     * @param string $key_field
+     * @param string $field
+     * @param bool $suppress_error
      * @return array
-    **/
+     * @throws \Exception
+     */
     static public function flattenMultiple($array_obj,$key_field = "id",$field = "name" , $suppress_error = true)
     {
         if(!is_array($array_obj) && !($array_obj instanceof Traversable))
@@ -110,8 +124,13 @@ class  ArrayMolder {
      *  Возвращает плоский массив вида ключ => значение
      *  работает с объектами
      *
+     * @param $array_obj
+     * @param string $key_field
+     * @param string $field
+     * @param bool $suppress_error
      * @return array
-    **/
+     * @throws \Exception
+     */
     static public function flatten($array_obj,$key_field = "id",$field = "name" , $suppress_error = true)
     {
         if(!is_array($array_obj) && !($array_obj instanceof Traversable))
@@ -140,8 +159,12 @@ class  ArrayMolder {
     /**
      * Собирает поле с подмассивов или с объектов массива
      *
+     * @param $array_obj
+     * @param string $field
+     * @param bool $suppress_error
      * @return array
-     **/
+     * @throws \Exception
+     */
     static public function collect($array_obj,$field = "id", $suppress_error = true)
     {
         if(!is_array($array_obj) && !($array_obj instanceof Traversable))
@@ -171,8 +194,13 @@ class  ArrayMolder {
     /**
      * Пересобирает массив используя в качестве ключа значение элеменита массива
      *
+     * @param $array_obj
+     * @param string $field
+     * @param bool $multiple
+     * @param bool $suppress_error
      * @return array
-     **/
+     * @throws \Exception
+     */
     static public function index($array_obj , $field = "id",$multiple = false ,$suppress_error = true)
     {
         if(!is_array($array_obj) && !($array_obj instanceof Traversable))

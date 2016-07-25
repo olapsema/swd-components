@@ -42,7 +42,9 @@ class StringToolset
 
     /**
      *  Calculate text length in html document
-    **/
+     * @param $html
+     * @return int
+     */
     public function strlen($html)
     {
         $doc = $this->getDocument($html);
@@ -68,7 +70,11 @@ class StringToolset
     /**
      * substring without block cutting at the end
      *
-    **/
+     * @param $html
+     * @param $from
+     * @param bool $length
+     * @return string
+     */
     public function substringBlock($html,$from,$length = false)
     {
         $doc = $this->getDocument($html);
@@ -99,9 +105,13 @@ class StringToolset
     /**
      * Не может использоваться самостоятельно только в substNode
      *
-     * @return void
+     * @param $node
+     * @param $start
+     * @param $end
+     * @param bool $callbacks
+     * @return int
      * @author skoryukin
-     **/
+     */
     private function substringNode($node,$start,$end,$callbacks = false)
     {
         if(in_array($node->nodeName,$this->substr_ignore_tags)){
@@ -123,7 +133,7 @@ class StringToolset
             if($start > $cur_pos){
                 //cut top of text
                 if($node->nodeType == XML_TEXT_NODE){
-                    $whole_text = $this->trimHTML($node->wholeText);
+                    $whole_text = $this->trimHtml($node->wholeText);
                     if(!empty($whole_text)){
                         $node_text = mb_substr($whole_text,($start-$cur_pos));
                         if(!empty($callbacks) && isset($callbacks["start"]) && is_callable($callbacks["start"])){
@@ -149,7 +159,7 @@ class StringToolset
                 if($end < $cur_pos+$length){
 
                     if($node->nodeType == XML_TEXT_NODE){
-                        $whole_text = $this->trimHTML($node->wholeText);
+                        $whole_text = $this->trimHtml($node->wholeText);
                         if(!empty($whole_text)){
                             $node_text = mb_substr($whole_text,0,($end - $cur_pos));
                             //var_dump($node_text);
@@ -233,9 +243,10 @@ class StringToolset
     /**
      * Просчитывает длину текста ноды (не рекурсивно)
      *
-     * @return void
+     * @param $node
      * @author skoryukin
-     **/
+     * @return int
+     */
     protected function strlenNode($node)
     {
         $result = 0;
@@ -247,7 +258,7 @@ class StringToolset
             //may be use isWhitespaceInElementContent
             //var_dump($node->wholeText);
             //$node_text = trim($node->wholeText);
-            $node_text = $this->trimHTML($node->wholeText);
+            $node_text = $this->trimHtml($node->wholeText);
             if(!empty($node_text)){
                 $result = mb_strlen($node_text);
             }

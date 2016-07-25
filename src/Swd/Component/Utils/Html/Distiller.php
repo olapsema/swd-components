@@ -300,9 +300,10 @@ class Distiller
     /**
      * Проверяет можно ли удалить ноду если она пуста
      *
-     * @return void
+     * @param $name
      * @author skoryukin
-     **/
+     * @return bool
+     */
     protected function isEmptyProtected($name)
     {
         $protected_tags = array("br","img","a");
@@ -312,9 +313,12 @@ class Distiller
     /**
      * undocumented function
      *
-     * @return void
+     * @param $src_node
+     * @param $dst_node
+     * @return bool
+     * @throws \Exception
      * @author skoryukin
-     **/
+     */
     protected function copyAttributes($src_node,$dst_node)
     {
         if($src_node->nodeName != $dst_node->nodeName) return false;

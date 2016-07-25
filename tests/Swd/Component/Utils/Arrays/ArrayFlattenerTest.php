@@ -5,11 +5,13 @@ namespace Swd\Component\Utils\Arrays;
 class ArrayFlattenerTest extends \PHPUnit_Framework_TestCase {
 
 
-
     /**
      * @dataProvider getItems
      *
-     **/
+     * @param $sample
+     * @param $origin
+     * @param $delimeter
+     */
     public function testFlattenItem($sample,$origin,$delimeter)
     {
 
@@ -187,7 +189,10 @@ class ArrayFlattenerTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider getUnwrapItems
      *
-     **/
+     * @param $sample
+     * @param $origin
+     * @param $level
+     */
     public function testUnwrap($sample,$origin,$level)
     {
         $result = ArrayFlattener::unwrap($sample,$level);

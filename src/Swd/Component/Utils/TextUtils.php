@@ -7,8 +7,9 @@ class TextUtils {
     /**
      * Транслитерация русского текста
      *
+     * @param $string
      * @return string
-     **/
+     */
     static public  function transliterate($string)
     {
 
@@ -34,8 +35,9 @@ class TextUtils {
     /**
      * Замена всех небуквенных символов на -
      *
+     * @param $string
      * @return string
-     **/
+     */
     static public function cleanup($string)
     {
         $string = trim($string, ' -_');
@@ -51,8 +53,9 @@ class TextUtils {
     /**
      * Получение slug
      *
+     * @param $string
      * @return string
-     **/
+     */
     static public function slugify($string)
     {
         $string = static::cleanup($string);
@@ -75,8 +78,12 @@ class TextUtils {
      * Multibyte version of wordwrap
      * @see http://stackoverflow.com/questions/3825226/multi-byte-safe-wordwrap-function-for-utf-8
      *
-     * @return void
-     **/
+     * @param $str
+     * @param int $width
+     * @param string $break
+     * @param bool $cut
+     * @return string
+     */
     public static function wordwrap($str, $width = 75, $break = "\n", $cut = false) {
         $lines = explode($break, $str);
         foreach ($lines as &$line) {
