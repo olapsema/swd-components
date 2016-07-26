@@ -29,9 +29,10 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
     public function getHtmls()
     {
         $names = array(
-//            'simple',
+            'simple',
             'fulltext',
-//            'whitespace_inline',
+            'whitespace_inline',
+            'block_newline',
         );
 
         $result = array();
