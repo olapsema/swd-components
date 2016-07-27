@@ -22,6 +22,7 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
         $text = preg_replace("/[[:blank:]]/mu",' ',$text);
         $result = preg_replace("/[[:blank:]]/mu",' ',$result);
         //var_export($result);
+        //echo "\n";
         //var_export($text);
         $this->assertEquals($text,$result);
     }
@@ -33,6 +34,8 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
             'fulltext',
             'whitespace_inline',
             'block_newline',
+            'whitespace_br',
+            'tag_a',
         );
 
         $result = array();

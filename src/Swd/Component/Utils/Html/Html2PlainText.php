@@ -14,9 +14,8 @@ class Html2PlainText
 {
     protected $template = "<html><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><body>%s</body></html>";
 
-    protected $newLineTags = array(
-    );
-
+    const BLOCK_BEGIN = 1;
+    const BLOCK_END = 2;
     /**
      * Теги которые не обрабатываются
      *
@@ -55,22 +54,34 @@ class Html2PlainText
         $nodes = array();
         $this->extractNodes($root,$nodes);
         $lastText = false;
-        $lastBlock = true;
-        //var_dump('initial '.count($nodes));
         while($node = array_shift($nodes)){
+            //var_dump('lasttext '.intval($lastText));
             if(!is_object($node)){
-                $lastBlock = true;
-                $result .= $node;
+                if($node == self::BLOCK_BEGIN){
+                    //var_dump('begin');
+                    if($lastText){
+                        $result .= "\n";
+                    }
+                }
+
+                if($node == self::BLOCK_END){
+                    //var_dump('end');
+                    if($lastText){
+                        $result .= "\n";
+                    }
+                }
+                $lastText= false;
                 continue;
             }
-            //var_dump($node->nodeName.'#'.$node->nodeType);
 
             if($node->nodeType == XML_TEXT_NODE){
-                //var_dump(get_class($node),$node);
-                //var_dump($node->wholeText);
                 $node->normalize();
-                $lastText = true;
                 $text = $node->nodeValue;
+                $textTest = trim($text);
+                if(empty($textTest)){
+                    //var_dump('skip');
+                    continue;
+                }
 
                 if($this->options['merge_whitespace']){
                     $text = $this->mergeWhiteSpace($text);
@@ -78,38 +89,34 @@ class Html2PlainText
                 if($this->options['ignore_newline']){
                     $text = str_replace("\n",' ',$text);
                 }
-                if($lastBlock){
+                if(!$lastText){
                     $text = ltrim($text);
                 }
-                $lastBlock = false;
-
+                //var_dump($text);
+                $lastText = true;
                 $result .=  $text;
                 continue;
             }
+
             if($node->nodeName == 'br'){
+                //var_dump('br');
                 $result .="\n";
-                $lastBlock = true;
+                $lastText = false;
                 continue;
             }
 
-            //$result .= trim($node->nodeValue);
             $blockTag = in_array($node->nodeName,$this->options['block_tags']);
 
-            $lastBlock = $blockTag;
-            //var_dump($node->nodeName.'adds '.$node->childNodes->length);
             if($blockTag){
-                array_unshift($nodes, "\n");//перенос строки после элемента
+                array_unshift($nodes, self::BLOCK_END);//для переноса строки после элемента
             }
 
             if($node->hasChildNodes() ){
                 $this->extractNodes($node,$nodes,true);
-                //var_dump($nodes);
             }
-            if($lastText && $blockTag){
-                array_unshift($nodes, "\n");//перенос строки перед элемента
+            if($blockTag){
+                array_unshift($nodes, self::BLOCK_BEGIN);//для переноса строки перед элемента
             }
-            $lastText = false;
-            //var_dump('count: '.count($nodes));
         }
 
         return rtrim($result);
