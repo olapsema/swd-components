@@ -11,7 +11,7 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
      * @return void
      * @author skoryukin
      **/
-    public function test($html,$text)
+    public function testPurify($html,$text)
     {
         $obj = new Html2PlainText([
             "merge_whitespace"=>true,
@@ -22,7 +22,7 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
         $text = preg_replace("/[[:blank:]]/mu",' ',$text);
         $result = preg_replace("/[[:blank:]]/mu",' ',$result);
         //var_export($result);
-        //echo "\n";
+        //echo "\n----------------------------\n";
         //var_export($text);
         $this->assertEquals($text,$result);
     }
@@ -31,7 +31,7 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
     {
         $names = array(
             'simple',
-            'fulltext',
+            //'fulltext',
             'whitespace_inline',
             'block_newline',
             'whitespace_br',
@@ -51,4 +51,26 @@ class SimpleTest extends \PHPUnit_Framework_TestCase
 
         return $result;
     }
+
+    /**
+     *
+     *
+     * @return void
+     * @author skoryukin
+     **/
+    //public function testBroken()
+    //{
+        ////while(ob_get_level()) ob_end_clean();
+        //$html = file_get_contents(__DIR__.'/broken/broken_html2.html');
+        //$obj = new Html2PlainText([
+            //"merge_whitespace"=>true,
+            //"ignore_newline"=>true,
+        //]);
+
+        //$result = $obj->process($html);
+        ////var_export($result);
+        ////echo "\n";
+        ////var_export($text);
+        ////$this->assertEquals($text,$result);
+    //}
 }
