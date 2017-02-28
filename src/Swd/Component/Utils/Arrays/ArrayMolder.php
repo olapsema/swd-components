@@ -7,6 +7,25 @@ use Traversable,ArrayAccess;
 class  ArrayMolder {
 
     /**
+     * Переименовывает ключи в массиве
+     * 
+     * @param array $arr
+     * @param array $replaceWith
+     * @return array
+     */
+    public static function replaceKeys(array $arr, array $replaceWith)
+    {
+        foreach ($replaceWith as $key => $sub){
+            if(isset($arr[$key])){
+                $arr[$sub] = $arr[$key];
+                unset($arr[$key]);
+            }
+        }
+        
+        return $arr;
+    }
+    
+    /**
      *  Возвращает ассоциативный массив вида ключ =>  ряд
      * @param $array_val
      * @param string $field
