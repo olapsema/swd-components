@@ -178,7 +178,7 @@ class  ArrayMolder {
     /**
      * Собирает поле с подмассивов или с объектов массива
      *
-     * @param $array_obj
+     * @param array | Traversable $array_obj
      * @param string $field
      * @param bool $suppress_error
      * @return array
