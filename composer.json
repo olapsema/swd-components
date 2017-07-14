@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-0": {
-            "Swd\\Component": "src/" 
+            "Swd\\Json": "src/",
+            "Swd\\Component": "src/"
         }
     }
 }
