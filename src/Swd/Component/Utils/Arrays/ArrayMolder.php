@@ -1,94 +1,102 @@
 <?php
+
 namespace Swd\Component\Utils\Arrays;
 
 use  Swd\Component\Utils\Inflector;
-use Traversable,ArrayAccess;
+use Traversable, ArrayAccess;
 
-class  ArrayMolder {
+class  ArrayMolder
+{
 
     /**
      * Переименовывает ключи в массиве
-     * 
+     *
      * @param array $arr
      * @param array $replaceWith
      * @return array
      */
     public static function replaceKeys(array $arr, array $replaceWith)
     {
-        foreach ($replaceWith as $key => $sub){
-            if(isset($arr[$key])){
+        foreach ($replaceWith as $key => $sub) {
+            if (isset($arr[$key])) {
                 $arr[$sub] = $arr[$key];
                 unset($arr[$key]);
             }
         }
-        
+
         return $arr;
     }
-    
+
     /**
      *  Возвращает ассоциативный массив вида ключ =>  ряд
-     * @param $array_val
+     * @param $arrayValue
      * @param string $field
      * @param bool $multiple
      * @return array
      */
-    static public function indexArray($array_val,$field = "id",$multiple = false)
+    static public function indexArray($arrayValue, $field = "id", $multiple = false)
     {
-        if(!is_array($array_val) && !($array_val instanceof ArrayAccess))
-            return array();
+        if (!is_array($arrayValue) && !($arrayValue instanceof ArrayAccess)) {
+            return [];
+        }
 
-        $result = array();
-        if(strlen($field)>0 && is_array($array_val)){
-            foreach($array_val as $row){
-                if($multiple){
+        $result = [];
+
+        if (strlen($field) > 0 && is_array($arrayValue)) {
+            foreach ($arrayValue as $row) {
+                if ($multiple) {
                     $result[$row[$field]][] = $row;
-                }else{
+                } else {
                     $result[$row[$field]] = $row;
                 }
             }
         }
+
         return $result;
     }
 
     /**
      *  Возвращает плоский массив вида ключ => значение
      *
-     * @param $array_val
-     * @param string $key_field
+     * @param $arrayValue
+     * @param string $keyField
      * @param string $field
      * @return array
      */
-    static public function flattenArray(&$array_val,$key_field = "id",$field = "name" )
+    static public function flattenArray(&$arrayValue, $keyField = "id", $field = "name")
     {
-        if(!is_array($array_val) && !($array_val instanceof ArrayAccess))
-            return array();
+        if (!is_array($arrayValue) && !($arrayValue instanceof ArrayAccess)) {
+            return [];
+        }
 
-        $result = array();
-        if(strlen($field)>0 && strlen($key_field)>0){
-            foreach($array_val as $row){
-                $result[$row[$key_field]] = $row[$field];
+        $result = [];
+        if (strlen($field) > 0 && strlen($keyField) > 0) {
+            foreach ($arrayValue as $row) {
+                $result[$row[$keyField]] = $row[$field];
             }
         }
+
         return $result;
     }
 
     /**
      * Возвращает массив значений $key
      *
-     * @param $array_val
+     * @param $arrayValue
      * @param string $key
      * @return array
      */
-    static public function collectArrayValue($array_val,$key='id')
+    static public function collectArrayValue($arrayValue, $key = 'id')
     {
-        if(!is_array($array_val) && !($array_val instanceof ArrayAccess))
-            return array();
+        if (!is_array($arrayValue) && !($arrayValue instanceof ArrayAccess)){
+            return [];
+        }
 
-        $result = array();
+        $result = [];
 
-        foreach($array_val as $val){
-            if(isset($val[$key])){
-                array_push($result,$val[$key]);
+        foreach ($arrayValue as $val) {
+            if (isset($val[$key])) {
+                array_push($result, $val[$key]);
             }
         }
 
@@ -99,43 +107,44 @@ class  ArrayMolder {
      *  Возвращает плоский массив вида ключ => array(значение1,...)
      *  работает с объектами
      *
-     * @param $array_obj
-     * @param string $key_field
+     * @param $arrayObj
+     * @param string $keyField
      * @param string $field
-     * @param bool $suppress_error
+     * @param bool $suppressError
      * @return array
      * @throws \Exception
      */
-    static public function flattenMultiple($array_obj,$key_field = "id",$field = "name" , $suppress_error = true)
+    static public function flattenMultiple($arrayObj, $keyField = "id", $field = "name", $suppressError = true)
     {
-        if(!is_array($array_obj) && !($array_obj instanceof Traversable))
+        if (!is_array($arrayObj) && !($arrayObj instanceof Traversable))
             return array();
 
-        $method = Inflector::camelize("get_".$field);
-        $key_method = Inflector::camelize("get_".$key_field);
+        $method = Inflector::camelize("get_" . $field);
+        $keyMethod = Inflector::camelize("get_" . $keyField);
 
         $result = array();
-        foreach($array_obj as $row){
+        foreach ($arrayObj as $row) {
 
-            if(is_object($row)){
-                if(!method_exists($row,$method) && !$suppress_error){
-                    throw new \Exception(sprintf("Method %s::%s not exists",get_class($row),$method));
+            if (is_object($row)) {
+                if (!method_exists($row, $method) && !$suppressError) {
+                    throw new \Exception(sprintf("Method %s::%s not exists", get_class($row), $method));
                 }
-                if(!method_exists($row,$key_method) && !$suppress_error){
-                    throw new \Exception(sprintf("Method %s::%s not exists",get_class($row),$key_method));
+                if (!method_exists($row, $keyMethod) && !$suppressError) {
+                    throw new \Exception(sprintf("Method %s::%s not exists", get_class($row), $keyMethod));
                 }
-                $key = $row->$key_method();
-                $value =  $row->$method();
+                $key = $row->$keyMethod();
+                $value = $row->$method();
 
-            }else{
-                $key = $row[$key_field];
-                $value =  $row[$field];
+            } else {
+                $key = $row[$keyField];
+                $value = $row[$field];
             }
-            if(!array_key_exists($key,$result)){
+            if (!array_key_exists($key, $result)) {
                 $result[$key] = array();
             }
-            $result[$key][]= $value;
+            $result[$key][] = $value;
         }
+
         return $result;
     }
 
@@ -143,112 +152,128 @@ class  ArrayMolder {
      *  Возвращает плоский массив вида ключ => значение
      *  работает с объектами
      *
-     * @param $array_obj
-     * @param string $key_field
+     * @param $arrayObj
+     * @param string $keyField
      * @param string $field
-     * @param bool $suppress_error
+     * @param bool $suppressError
      * @return array
      * @throws \Exception
      */
-    static public function flatten($array_obj,$key_field = "id",$field = "name" , $suppress_error = true)
+    static public function flatten($arrayObj, $keyField = "id", $field = "name", $suppressError = true)
     {
-        if(!is_array($array_obj) && !($array_obj instanceof Traversable))
-            return array();
+        if (!is_array($arrayObj) && !($arrayObj instanceof Traversable)){
+            return [];
+        }
 
-        $method = Inflector::camelize("get_".$field);
-        $key_method = Inflector::camelize("get_".$key_field);
+        $method = Inflector::camelize("get_" . $field);
+        $keyMethod = Inflector::camelize("get_" . $keyField);
 
-        $result = array();
-        foreach($array_obj as $row){
-            if(is_object($row)){
-                if(!method_exists($row,$method) && !$suppress_error){
-                    throw new \Exception(sprintf("Method %s::%s not exists",get_class($row),$method));
+        $result = [];
+        foreach ($arrayObj as $row) {
+            if (is_object($row)) {
+                if (!method_exists($row, $method) && !$suppressError) {
+                    throw new \Exception(sprintf("Method %s::%s not exists", get_class($row), $method));
                 }
-                if(!method_exists($row,$key_method) && !$suppress_error){
-                    throw new \Exception(sprintf("Method %s::%s not exists",get_class($row),$key_method));
+                if (!method_exists($row, $keyMethod) && !$suppressError) {
+                    throw new \Exception(sprintf("Method %s::%s not exists", get_class($row), $keyMethod));
                 }
-                $result[$row->$key_method()] = $row->$method();
-            }else{
-                $result[$row[$key_field]] = $row[$field];
+                $result[$row->$keyMethod()] = $row->$method();
+            } else {
+                $result[$row[$keyField]] = $row[$field];
             }
         }
+
         return $result;
     }
 
     /**
      * Собирает поле с подмассивов или с объектов массива
      *
-     * @param array | Traversable $array_obj
+     * @param array | Traversable $arrayObj
      * @param string $field
-     * @param bool $suppress_error
+     * @param bool $suppressError
      * @return array
      * @throws \Exception
      */
-    static public function collect($array_obj,$field = "id", $suppress_error = true)
+    static public function collect($arrayObj, $field = "id", $suppressError = true)
     {
-        if(!is_array($array_obj) && !($array_obj instanceof Traversable))
-            return array();
+        if (!is_array($arrayObj) && !($arrayObj instanceof Traversable)) {
+            return [];
+        }
 
-        $method = Inflector::camelize("get_".$field);
-        $result = array();
-        foreach($array_obj as $row){
-            if(is_object($row)){
-                if(!method_exists($row,$method) && !$suppress_error){
-                    throw new \Exception(sprintf("Method %s::%s not exists",get_class($row),$method));
+        $method = Inflector::camelize("get_" . $field);
+        $result = [];
+
+        foreach ($arrayObj as $row) {
+            if (is_object($row)) {
+                if (!method_exists($row, $method) && !$suppressError) {
+                    throw new \Exception(sprintf("Method %s::%s not exists", get_class($row), $method));
                 }
 
                 $result[] = $row->$method();
 
-            }else{
-                if(isset($row[$field])){
+            } else {
+                if (isset($row[$field])) {
                     $result[] = $row[$field];
-                }elseif(!$suppress_error){
-                    throw new \Exception(sprintf("No key %s in array with keys %s",$field,implode(", ",array_keys($row))));
+                } elseif (!$suppressError) {
+                    throw new \Exception(sprintf("No key %s in array with keys %s", $field, implode(", ", array_keys($row))));
                 }
             }
         }
+
         return $result;
     }
 
     /**
      * Пересобирает массив используя в качестве ключа значение элеменита массива
      *
-     * @param $array_obj
+     * @param $arrayObj
      * @param string $field
      * @param bool $multiple
-     * @param bool $suppress_error
+     * @param bool $suppressError
      * @return array
      * @throws \Exception
      */
-    static public function index($array_obj , $field = "id",$multiple = false ,$suppress_error = true)
+    static public function index($arrayObj, $field = "id", $multiple = false, $suppressError = true)
     {
-        if(!is_array($array_obj) && !($array_obj instanceof Traversable))
-            return array();
+        if (!is_array($arrayObj) && !($arrayObj instanceof Traversable)) {
+            return [];
+        }
 
-        $method = Inflector::camelize("get_".$field);
-        $result = array();
-        foreach($array_obj as $row){
-            if(is_object($row)){
-                if(!method_exists($row,$method) && !$suppress_error){
-                    throw new \Exception(sprintf("Method %s::%s not exists",get_class($row),$method));
+        $method = Inflector::camelize("get_" . $field);
+        $result = [];
+
+        foreach ($arrayObj as $row) {
+            if (is_object($row)) {
+                if (!method_exists($row, $method) && !$suppressError) {
+                    throw new \Exception(sprintf("Method %s::%s not exists", get_class($row), $method));
                 }
                 $key = $row->$method();
 
-            }else{
-                if(!isset($row[$field])){
-                    if(!$suppress_error)
-                        throw new \Exception(sprintf("No key %s in array with keys %s",$field,implode(", ",array_keys($row))));
+            } else {
+                if (!isset($row[$field])) {
+                    if (!$suppressError) {
+                        throw new \Exception(sprintf("No key %s in array with keys %s", $field, implode(", ", array_keys($row))));
+                    }
                 }
                 $key = $row[$field];
             }
 
-            if($multiple){
+            if (is_object($key)) {
+                if(!method_exists($key , '__toString')){
+                    throw  new \Exception(sprintf('Can\'t convert object to string. Class "%s" has no __toString method',get_class($key)));
+                }
+                $key = (string)$key;
+            }
+
+            if ($multiple) {
                 $result[$key][] = $row;
-            }else{
+            } else {
 
                 $result[$key] = $row;
             }
         }
+
         return $result;
     }
 
