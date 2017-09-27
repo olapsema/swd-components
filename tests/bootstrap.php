@@ -1,22 +1,6 @@
 <?php
 
-/*
- * This file is part of the Symfony package.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+$loader = require __DIR__ . "/../vendor/autoload.php";
+$loader->add('',[__DIR__.'/../src/',__DIR__.'/']);
 
-spl_autoload_register(function ($class) {
-    if (0 === strpos(ltrim($class, '/'), 'Swd\Component')) {
-        //$file = __DIR__.'/../'.substr(str_replace('\\', '/', $class), strlen('Swd\Component')).'.php';
-        $file = __DIR__.'/../src/'.str_replace('\\', '/', $class).'.php';
-        //var_dump($file);
-
-        if (file_exists($file)) {
-            require_once $file;
-        }
-    }
-});
+date_default_timezone_set('UTC');

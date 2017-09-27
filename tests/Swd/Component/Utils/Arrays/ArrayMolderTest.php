@@ -40,5 +40,13 @@ class ArrayMolderTest extends \PHPUnit_Framework_TestCase {
         return $result;
     }
 
+    public  function testCollectIterator()
+    {
+        $d = new \ArrayIterator([['id'=>1],['id'=>17]]);
+        
+        $result = ArrayMolder::collect($d);
+        
+        $this->assertEquals([1,17],$result);
+    }
 }
 
