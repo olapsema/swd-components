@@ -34,7 +34,7 @@ class Html2PlainText
             'ignore_newline' => false,
             'depth_limit' => 20,
             'tags_limit' => 1000,
-            'block_tags' => ['br','div','p','ol','ul','h1','h2','h3','h4','h5']
+            'block_tags' => ['tr','br','div','p','ol','ul','h1','h2','h3','h4','h5'],
         ],$options);
     }
 
@@ -109,8 +109,12 @@ class Html2PlainText
             }
 
             $blockTag = in_array($node->nodeName,$this->options['block_tags']);
-            if($blockTag && $lastText ){
+            if($blockTag && ($lastText || in_array($node->nodeName, ['tr']))){
                 $result .= "\n";
+            }
+
+            if($node->nodeName === 'td' && $node !== $node->parentNode->firstChild) {
+                $result .= " ";
             }
 
             if($node->hasChildNodes() ){
