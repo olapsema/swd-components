@@ -52,12 +52,11 @@ class Html2PlainText
      */
     public function wrapHtml($html)
     {
-        libxml_use_internal_errors(true);
         $dom = new DOMDocument('1.0', 'UTF-8');
         $dom->preserveWhiteSpace = false;
 
-        $dom->loadHTML(sprintf($this->template, $html));
-        libxml_clear_errors();
+        /** @noinspection PhpUsageOfSilenceOperatorInspection */
+        @$dom->loadHTML(sprintf($this->template, $html));
 
         return $dom;
     }
